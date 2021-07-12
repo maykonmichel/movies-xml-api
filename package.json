@@ -1,0 +1,10 @@
+{
+  "name": "movies-xml-api",
+  "version": "0.0.1",
+  "description": "XML api of movies and series",
+  "main": "index.js",
+  "repository": "https://github.com/maykonmichel/movies-xml-api",
+  "author": "maykonmichel",
+  "license": "MIT",
+  "private": false
+}
