@@ -7,6 +7,9 @@
   "author": "maykonmichel",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "postinstall": "husky install"
+  },
   "dependencies": {
     "express": "^4.17.1"
   },
