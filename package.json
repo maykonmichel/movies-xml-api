@@ -16,6 +16,10 @@
     "body-parser": "^1.19.0",
     "body-parser-xml": "^2.0.3",
     "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "reflect-metadata": "^0.1.13",
+    "tsoa": "^3.8.0",
+    "typeorm": "^0.2.34",
     "xml": "^1.0.1"
   },
   "devDependencies": {

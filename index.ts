@@ -1,36 +1,22 @@
-import bodyParser from 'body-parser';
-import bodyParserXml from 'body-parser-xml';
-import express, {Application} from 'express';
-import xml from 'xml';
+import 'reflect-metadata';
+import {createConnection} from 'typeorm';
 
-bodyParserXml(bodyParser);
+import {Actor} from './src/actors/actor';
+import {app} from './src/app';
 
-const app: Application = express();
 const port = 3000;
 
-app.use(bodyParser.xml());
-app.use(bodyParser.urlencoded({extended: true}));
-
-app.get('/', async (req, res) => {
-  res.type('application/xml');
-  return res.status(200).send(
-    xml({
-      message: 'Hello World!',
-    }),
-  );
-});
-
-app.post('/', async (req, res) => {
-  return res.status(200).send(
-    xml({
-      message: 'Hello World!',
-    }),
-  );
-});
-
 try {
-  app.listen(port, (): void => {
-    console.log(`Connected successfully on port ${port}`);
+  createConnection({
+    type: 'mysql',
+    url: process.env.CLEARDB_DATABASE_URL,
+    entities: [Actor],
+    logging: true,
+    synchronize: true,
+  }).then(() => {
+    app.listen(port, (): void => {
+      console.log(`Connected successfully on port ${port}`);
+    });
   });
 } catch (error) {
   console.error(`Error occured: ${error.message}`);
