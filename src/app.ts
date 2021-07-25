@@ -21,3 +21,14 @@ app.get('/actors', async (req, res) => {
     res.send({Actors: {Actor: rows}});
   });
 });
+
+app.get('/actors/:id', async (req, res) => {
+  pool.query(
+    'SELECT * FROM actor WHERE id = ?',
+    [req.params.id],
+    (err, rows) => {
+      console.log(err, rows);
+      res.send({Actor: rows});
+    },
+  );
+});
