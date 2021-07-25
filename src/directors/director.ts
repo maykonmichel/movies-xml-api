@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Actor {
+export class Director {
   @PrimaryGeneratedColumn()
   id!: number;
 
