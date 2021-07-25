@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import bodyParserXml from 'body-parser-xml';
 import express from 'express';
 import {Builder} from 'xml2js';
+
 import {pool} from './database';
 
 export const app = express();
@@ -24,14 +25,14 @@ app.use((req, res, next) => {
 });
 
 app.get('/actors', async (req, res) => {
-  pool.query('SELECT * FROM actor', (err, rows) => {
+  pool.query('SELECT * FROM actors', (err, rows) => {
     res.send({Actors: {Actor: rows}});
   });
 });
 
 app.get('/actors/:id', async (req, res) => {
   pool.query(
-    'SELECT * FROM actor WHERE id = ?',
+    'SELECT * FROM actors WHERE id = ?',
     [req.params.id],
     (err, rows) => {
       console.log(err, rows);
@@ -42,7 +43,7 @@ app.get('/actors/:id', async (req, res) => {
 
 app.post('/actors', async (req, res) => {
   pool.query(
-    'INSERT INTO actor VALUES (DEFAULT, ?, DEFAULT, DEFAULT)',
+    'INSERT INTO actors(name) VALUES (?)',
     req.body.input.name[0],
     () => {
       res.statusCode = 201;
@@ -52,14 +53,14 @@ app.post('/actors', async (req, res) => {
 });
 
 app.get('/directors', async (req, res) => {
-  pool.query('SELECT * FROM director', (err, rows) => {
+  pool.query('SELECT * FROM directors', (err, rows) => {
     res.send({Directors: {Director: rows}});
   });
 });
 
 app.get('/directors/:id', async (req, res) => {
   pool.query(
-    'SELECT * FROM director WHERE id = ?',
+    'SELECT * FROM directors WHERE id = ?',
     [req.params.id],
     (err, rows) => {
       console.log(err, rows);
@@ -70,7 +71,7 @@ app.get('/directors/:id', async (req, res) => {
 
 app.post('/directors', async (req, res) => {
   pool.query(
-    'INSERT INTO director VALUES (DEFAULT, ?, DEFAULT, DEFAULT)',
+    'INSERT INTO directors(name) VALUES (?)',
     req.body.input.name[0],
     () => {
       res.statusCode = 201;
@@ -80,14 +81,14 @@ app.post('/directors', async (req, res) => {
 });
 
 app.get('/movies', async (req, res) => {
-  pool.query('SELECT * FROM movie', (err, rows) => {
+  pool.query('SELECT * FROM movies', (err, rows) => {
     res.send({Movies: {Movie: rows}});
   });
 });
 
 app.get('/movies/:id', async (req, res) => {
   pool.query(
-    'SELECT * FROM movie WHERE id = ?',
+    'SELECT * FROM movies WHERE id = ?',
     [req.params.id],
     (err, rows) => {
       console.log(err, rows);
@@ -103,7 +104,7 @@ app.post('/movies', async (req, res) => {
     rating: [rating],
   } = req.body.input;
   pool.query(
-    'INSERT INTO movie(name, year, rating) VALUES (?, ?, ?)',
+    'INSERT INTO movies(name, year, rating) VALUES (?, ?, ?)',
     [name, year, rating],
     () => {
       res.statusCode = 201;
