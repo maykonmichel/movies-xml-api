@@ -1,25 +1,18 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Path,
-  Post,
-  Query,
-  Route,
-  SuccessResponse,
-} from 'tsoa';
+import {Body, Controller, Get, Path, Post, Route, SuccessResponse} from 'tsoa';
 
 import {Actor} from './actor';
-import {ActorsService, ActorCreationParams} from './actorsService';
+import {ActorCreationParams, ActorsService} from './actorsService';
 
 @Route('actors')
 export class ActorsController extends Controller {
+  @Get('/')
+  public async getActors(): Promise<Array<Actor>> {
+    return new ActorsService().getAll();
+  }
+
   @Get('{actorId}')
-  public async getActor(
-    @Path() actorId: number,
-    @Query() name?: string,
-  ): Promise<Actor | null> {
-    return new ActorsService().get(actorId, name);
+  public async getActor(@Path() actorId: number): Promise<Actor | null> {
+    return new ActorsService().get(actorId);
   }
 
   @SuccessResponse('201', 'Created')

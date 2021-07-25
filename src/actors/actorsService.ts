@@ -5,9 +5,13 @@ import {Actor} from './actor';
 export type ActorCreationParams = Pick<Actor, 'name'>;
 
 export class ActorsService {
-  public get(id: number, name?: string): Promise<Actor | null> {
+  public getAll(): Promise<Array<Actor>> {
+    return getRepository(Actor).find();
+  }
+
+  public get(id: number): Promise<Actor | null> {
     return getRepository(Actor)
-      .findOne({id, name})
+      .findOne({id})
       .then((actor) => actor || null);
   }
 
