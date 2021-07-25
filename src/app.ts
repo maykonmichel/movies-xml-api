@@ -15,32 +15,42 @@ export const app = express();
 app.use(bodyParser.xml());
 app.use(bodyParser.urlencoded({extended: true}));
 
-RegisterRoutes(app);
-
-app.use(function errorHandler(
-  err: unknown,
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): Response | void {
-  res.type('application/xml');
-
-  if (err instanceof ValidateError) {
-    console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
-    return res.status(422).send(
-      Parser.parse({
-        message: 'Validation Failed',
-        details: err?.fields,
-      }),
-    );
-  }
-  if (err instanceof Error) {
-    return res.status(500).send(
-      Parser.parse({
-        message: 'Internal Server Error',
-      }),
-    );
-  }
-
+app.use((req, res, next) => {
+  const send = res.send;
+  res.send = (data) => {
+    res.type('application/xml');
+    res.send = send;
+    return res.send(Parser.parse(JSON.parse(data)));
+  };
   next();
 });
+
+RegisterRoutes(app);
+
+app.use(
+  (
+    err: unknown,
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Response | void => {
+    res.type('application/xml');
+
+    if (err instanceof ValidateError) {
+      console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
+      return res.status(422).json({
+        message: 'Validation Failed',
+        details: err?.fields,
+      });
+    }
+    if (err instanceof Error) {
+      return res.status(500).send(
+        Parser.parse({
+          message: 'Internal Server Error',
+        }),
+      );
+    }
+
+    next();
+  },
+);
