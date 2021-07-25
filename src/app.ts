@@ -50,3 +50,31 @@ app.post('/actors', async (req, res) => {
     },
   );
 });
+
+app.get('/directors', async (req, res) => {
+  pool.query('SELECT * FROM director', (err, rows) => {
+    res.send({Directors: {Director: rows}});
+  });
+});
+
+app.get('/directors/:id', async (req, res) => {
+  pool.query(
+    'SELECT * FROM director WHERE id = ?',
+    [req.params.id],
+    (err, rows) => {
+      console.log(err, rows);
+      res.send({Director: rows});
+    },
+  );
+});
+
+app.post('/directors', async (req, res) => {
+  pool.query(
+    'INSERT INTO director VALUES (DEFAULT, ?, DEFAULT, DEFAULT)',
+    req.body.input.name[0],
+    () => {
+      res.statusCode = 201;
+      res.send({});
+    },
+  );
+});
