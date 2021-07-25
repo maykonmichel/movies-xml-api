@@ -78,3 +78,36 @@ app.post('/directors', async (req, res) => {
     },
   );
 });
+
+app.get('/movies', async (req, res) => {
+  pool.query('SELECT * FROM movie', (err, rows) => {
+    res.send({Movies: {Movie: rows}});
+  });
+});
+
+app.get('/movies/:id', async (req, res) => {
+  pool.query(
+    'SELECT * FROM movie WHERE id = ?',
+    [req.params.id],
+    (err, rows) => {
+      console.log(err, rows);
+      res.send({Movie: rows});
+    },
+  );
+});
+
+app.post('/movies', async (req, res) => {
+  const {
+    name: [name],
+    year: [year],
+    rating: [rating],
+  } = req.body.input;
+  pool.query(
+    'INSERT INTO movie(name, year, rating) VALUES (?, ?, ?)',
+    [name, year, rating],
+    () => {
+      res.statusCode = 201;
+      res.send({});
+    },
+  );
+});
