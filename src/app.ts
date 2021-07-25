@@ -1,10 +1,17 @@
+import bodyParser from 'body-parser';
+import bodyParserXml from 'body-parser-xml';
 import express from 'express';
 import {Builder} from 'xml2js';
 import {pool} from './database';
 
 export const app = express();
 
-const builder = new Builder({headless: true});
+bodyParserXml(bodyParser);
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.xml());
+
+const builder = new Builder();
 
 app.use((req, res, next) => {
   const send = res.send;
@@ -29,6 +36,17 @@ app.get('/actors/:id', async (req, res) => {
     (err, rows) => {
       console.log(err, rows);
       res.send({Actor: rows});
+    },
+  );
+});
+
+app.post('/actors', async (req, res) => {
+  pool.query(
+    'INSERT INTO actor VALUES (DEFAULT, ?, DEFAULT, DEFAULT)',
+    req.body.input.name[0],
+    () => {
+      res.statusCode = 201;
+      res.send({});
     },
   );
 });

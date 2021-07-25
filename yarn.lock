@@ -112,6 +112,17 @@
   resolved "https://registry.yarnpkg.com/@tsconfig/node16/-/node16-1.0.2.tgz#423c77877d0569db20e1fc80885ac4118314010e"
   integrity sha512-eZxlbI8GZscaGS7kkc/trHTT5xgrjH3/1n2JDwusC9iahPKWMRvRjJSAN5mCXviuTGQ/lHnhvv8Q1YTpnfz9gA==
 
+"@types/body-parser-xml@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/body-parser-xml/-/body-parser-xml-2.0.1.tgz#0976279a6cb8b41ab3c8cd5e8e3ebb07ba7d1eb9"
+  integrity sha512-P+ddTyQFudeAxN3ii7o2tPyosKH4OaMoMssRhmWg0hSswNOIqZVxuPNy04JCDwMP2ITvUMrIk8YeqqGXxjMqwg==
+  dependencies:
+    "@types/body-parser" "*"
+    "@types/connect" "*"
+    "@types/express-serve-static-core" "*"
+    "@types/node" "*"
+    "@types/xml2js" "*"
+
 "@types/body-parser@*":
   version "1.19.1"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.19.1.tgz#0c0174c42a7d017b818303d4b5d969cb0b75929c"
@@ -127,7 +138,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/express-serve-static-core@^4.17.18":
+"@types/express-serve-static-core@*", "@types/express-serve-static-core@^4.17.18":
   version "4.17.24"
   resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.17.24.tgz#ea41f93bf7e0d59cd5a76665068ed6aab6815c07"
   integrity sha512-3UJuW+Qxhzwjq3xhwXm2onQcFHn76frIYVbTu+kn24LFxI+dEhdfISDFovPB8VpEgW8oQCTpRuCe+0zJxB7NEA==
@@ -191,7 +202,7 @@
     "@types/mime" "^1"
     "@types/node" "*"
 
-"@types/xml2js@^0.4.9":
+"@types/xml2js@*", "@types/xml2js@^0.4.9":
   version "0.4.9"
   resolved "https://registry.yarnpkg.com/@types/xml2js/-/xml2js-0.4.9.tgz#a38267d8c2fe121c96922b12ee3bd89a58a6e20e"
   integrity sha512-CHiCKIihl1pychwR2RNX5mAYmJDACgFVCMT5OArMaO3erzwXVcBqPcusr+Vl8yeeXukxZqtF8mZioqX+mpjjdw==
@@ -418,7 +429,14 @@ binary-extensions@^2.0.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
   integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
 
-body-parser@1.19.0:
+body-parser-xml@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/body-parser-xml/-/body-parser-xml-2.0.3.tgz#dba4461c5a0a5289612ced2e70442db11c38a615"
+  integrity sha512-tWvcAbh8QPd/lj+yfGZBMY/roof/e2iSXrJbYXYjxVhHQ88D2CF3AxDTdwhb9wcNdHVNbCttaWipchJPEs5r0g==
+  dependencies:
+    xml2js "^0.4.23"
+
+body-parser@1.19.0, body-parser@^1.19.0:
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
   integrity sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw==
