@@ -20,7 +20,11 @@ app.use((req, res, next) => {
   res.send = (data) => {
     res.type('application/xml');
     res.send = send;
-    return res.send(Parser.parse(JSON.parse(data)));
+    try {
+      return res.send(Parser.parse(JSON.parse(data)));
+    } catch {
+      return res.send(data);
+    }
   };
   next();
 });

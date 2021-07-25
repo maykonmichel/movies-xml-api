@@ -23,4 +23,8 @@ export class ActorsService {
       ...actorCreationParams,
     });
   }
+
+  public async delete(id: number): Promise<void> {
+    await getRepository(Actor).delete({id});
+  }
 }
