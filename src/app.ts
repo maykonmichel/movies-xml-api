@@ -102,10 +102,46 @@ app.post('/movies', async (req, res) => {
     name: [name],
     year: [year],
     rating: [rating],
+    director: [director],
   } = req.body.input;
   pool.query(
-    'INSERT INTO movies(name, year, rating) VALUES (?, ?, ?)',
-    [name, year, rating],
+    'INSERT INTO movies(director, name, year, rating) VALUES (?, ?, ?, ?)',
+    [director, name, year, rating],
+    () => {
+      res.statusCode = 201;
+      res.send({});
+    },
+  );
+});
+
+app.get('/series', async (req, res) => {
+  pool.query('SELECT * FROM series', (err, rows) => {
+    res.send({Series: {Serie: rows}});
+  });
+});
+
+app.get('/series/:id', async (req, res) => {
+  pool.query(
+    'SELECT * FROM series WHERE id = ?',
+    [req.params.id],
+    (err, rows) => {
+      console.log(err, rows);
+      res.send({Serie: rows});
+    },
+  );
+});
+
+app.post('/series', async (req, res) => {
+  const {
+    name: [name],
+    year: [year],
+    rating: [rating],
+    director: [director],
+    seasons: [seasons],
+  } = req.body.input;
+  pool.query(
+    'INSERT INTO series(director, name, year, rating, seasons) VALUES (?, ?, ?, ?, ?)',
+    [director, name, year, rating, seasons],
     () => {
       res.statusCode = 201;
       res.send({});
