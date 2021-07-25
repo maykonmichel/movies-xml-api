@@ -114,6 +114,27 @@ app.post('/movies', async (req, res) => {
   );
 });
 
+app.get('/movies/:id/cast', async (req, res) => {
+  pool.query(
+    'SELECT actors.* from movies_cast INNER JOIN actors ON actors.id = movies_cast.actor WHERE movie = ?',
+    [req.params.id],
+    (err, rows) => {
+      res.send({Actors: {Actor: rows}});
+    },
+  );
+});
+
+app.post('/movies/:id/cast', async (req, res) => {
+  pool.query(
+    'INSERT INTO movies_cast(movie, actor) VALUES (?, ?)',
+    [req.params.id, req.body.input.actor[0]],
+    () => {
+      res.statusCode = 201;
+      res.send({});
+    },
+  );
+});
+
 app.get('/series', async (req, res) => {
   pool.query('SELECT * FROM series', (err, rows) => {
     res.send({Series: {Serie: rows}});
@@ -142,6 +163,27 @@ app.post('/series', async (req, res) => {
   pool.query(
     'INSERT INTO series(director, name, year, rating, seasons) VALUES (?, ?, ?, ?, ?)',
     [director, name, year, rating, seasons],
+    () => {
+      res.statusCode = 201;
+      res.send({});
+    },
+  );
+});
+
+app.get('/series/:id/cast', async (req, res) => {
+  pool.query(
+    'SELECT actors.* from series_cast INNER JOIN actors ON actors.id = series_cast.actor WHERE serie = ?',
+    [req.params.id],
+    (err, rows) => {
+      res.send({Actors: {Actor: rows}});
+    },
+  );
+});
+
+app.post('/series/:id/cast', async (req, res) => {
+  pool.query(
+    'INSERT INTO series_cast(serie, actor) VALUES (?, ?)',
+    [req.params.id, req.body.input.actor[0]],
     () => {
       res.statusCode = 201;
       res.send({});
