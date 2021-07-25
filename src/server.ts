@@ -4,7 +4,7 @@ import {createConnection} from 'typeorm';
 import {Actor} from './actors/actor';
 import {app} from './app';
 
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 try {
   createConnection({
@@ -14,8 +14,8 @@ try {
     logging: true,
     synchronize: true,
   }).then(() => {
-    app.listen(port, (): void => {
-      console.log(`Connected successfully on port ${port}`);
+    app.listen(PORT, (): void => {
+      console.log(`Connected successfully on port ${PORT}`);
     });
   });
 } catch (error) {
