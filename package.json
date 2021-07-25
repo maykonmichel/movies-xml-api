@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec-and-routes\"",
     "build": "tsoa spec-and-routes && tsc",
-    "start": "node build/src/server.ts",
+    "start": "node build/src/server.js",
     "postinstall": "husky install"
   },
   "dependencies": {
